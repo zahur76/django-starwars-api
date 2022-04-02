@@ -6,6 +6,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from django.shortcuts import get_object_or_404
 from django.contrib.auth import authenticate
+from rest_framework.permissions import IsAuthenticated
 
 from .models import Character, Faction
 
@@ -17,11 +18,8 @@ def all_characters(request):
     '''
         View to return all Characters
     '''
-    
-    username = request.headers['username']
-    password = request.headers['password']
-    user = authenticate(request, username=username, password=password)
-    if user:
+    if request.user.is_authenticated:
+        print(request.user.is_authenticated)
         all_characters = Character.objects.all()
         data = CharacterSerializer(all_characters, many=True).data
         return Response(data)
