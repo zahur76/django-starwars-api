@@ -1,25 +1,40 @@
+from math import factorial
 from django.http import JsonResponse
 from .serializers import CharacterSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from django.shortcuts import get_object_or_404
+from django.contrib.auth import authenticate
 
-from .models import Character
+from .models import Character, Faction
 
 import  json
 
 # Create your views here
 @api_view(["GET"])
 def all_characters(request):
-    all_characters = Character.objects.all()
-    data = CharacterSerializer(all_characters, many=True).data
+    '''
+        View to return all Characters
+    '''
     
-    return Response(data)
+    username = request.headers['username']
+    password = request.headers['password']
+    user = authenticate(request, username=username, password=password)
+    if user:
+        all_characters = Character.objects.all()
+        data = CharacterSerializer(all_characters, many=True).data
+        return Response(data)
 
+    return Response({"Authorisation": 'denied'})
+    
+    
 
 @api_view(["POST"])
 def add_character(request):
+    '''
+        View to Add or Update Character
+    '''
     if request.method == "POST":
         data = request.data        
         try:

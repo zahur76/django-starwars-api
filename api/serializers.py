@@ -5,4 +5,5 @@ class CharacterSerializer(serializers.ModelSerializer):
     class Meta:
         model =Character
         fields = '__all__'
+        depth = 1
 
