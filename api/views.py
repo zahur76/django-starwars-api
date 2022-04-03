@@ -19,13 +19,11 @@ def all_characters(request):
         View to return all Characters
     '''
     if request.user.is_authenticated:
-        print(request.user.is_authenticated)
         all_characters = Character.objects.all()
         data = CharacterSerializer(all_characters, many=True).data
         return Response(data)
 
-    return Response({"Authorisation": 'denied'})
-    
+    return Response({"Authorisation": 'denied'})    
     
 
 @api_view(["POST"])
