@@ -12,6 +12,17 @@ from .models import Character, Faction
 
 import  json
 
+# @api_view(["GET"])
+# def get_client_ip(request):
+#     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+#     if x_forwarded_for:
+#         ip = x_forwarded_for.split(',')[-1].strip()
+#     else:
+#         ip = request.META.get('REMOTE_ADDR')
+#     print(ip)
+#     return ip
+
+
 # Create your views here
 @api_view(["GET"])
 def all_characters(request):
