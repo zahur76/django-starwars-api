@@ -29,6 +29,7 @@ class Character(models.Model):
     gender = models.CharField(max_length=6, choices=GENDER, null=False)
     birth_year = models.CharField(max_length=254)
     birth_planet = models.CharField(max_length=254)
+    image = models.ImageField(null=True, blank=True)
 
     def __str__(self):
         return self.name
