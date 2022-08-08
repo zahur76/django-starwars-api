@@ -31,7 +31,9 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["django-starwars-api.herokuapp.com", "127.0.0.1", 'http://localhost:8000/']
+ALLOWED_HOSTS = ["starwarsapi.hansolo.digital", "127.0.0.1"]
+
+# CSRF_TRUSTED_ORIGINS = ['https://starwarsapi.hansolo.digital/*', 'http://127.0.0.1:3000/*']
 
 
 # Application definition
@@ -43,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders',
     "rest_framework",
     'rest_framework.authtoken',
     'dj_rest_auth',
@@ -58,10 +61,10 @@ INSTALLED_APPS = [
 SITE_ID = 1
 
 MIDDLEWARE = [
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -76,6 +79,12 @@ REST_FRAMEWORK = {
         'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
     ],
 }
+
+CORS_ORIGIN_ALLOW_ALL=True
+
+CORS_ORIGIN_WHITELIST = [
+     'http://127.0.0.1:3000'
+]
 
 REST_USE_JWT = True
 
@@ -103,6 +112,17 @@ WSGI_APPLICATION = 'starwars_api.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql', 
+#         'NAME': 'hanssqrd_starwarsAPI',
+#         'USER': 'hanssqrd_starwarsAPI_user',
+#         'PASSWORD': '?Em#fF{BQcAn',
+#         'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
+#         'PORT': '3306',
+#     }}
+
 
 if "DATABASE_URL" in os.environ:
     DATABASES = {"default": dj_database_url.parse(os.environ.get("DATABASE_URL"))}
@@ -152,9 +172,8 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 # used for testing collectstatic in development
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = '/home/hanssqrd/starwarsAPI.hansolo.digital/static'
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
