@@ -31,9 +31,9 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["starwarsapi.hansolo.digital", "127.0.0.1"]
+ALLOWED_HOSTS = ["starwarsapi.hansolo.digital", "127.0.0.1" , "localhost"]
 
-# CSRF_TRUSTED_ORIGINS = ['https://starwarsapi.hansolo.digital/*', 'http://127.0.0.1:3000/*']
+# CSRF_TRUSTED_ORIGINS = ['https://starwarsapi.hansolo.digital/*', 'http://localhost:3000/*']
 
 
 # Application definition
@@ -80,10 +80,11 @@ REST_FRAMEWORK = {
     ],
 }
 
+
 CORS_ORIGIN_ALLOW_ALL=True
 
 CORS_ORIGIN_WHITELIST = [
-     'http://127.0.0.1:3000'
+     'http://localhost:3000',  
 ]
 
 REST_USE_JWT = True

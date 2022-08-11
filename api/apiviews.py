@@ -13,22 +13,30 @@ from rest_framework.permissions import IsAuthenticated
 from ipware import get_client_ip
 
 from .models import Character
-
+from django.contrib.auth import authenticate
 
 import json
 
 from api import serializers
 
-def get_client_ip(request):
-    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
-    if x_forwarded_for:
-        ip = x_forwarded_for.split(',')[-1].strip()
-    else:
-        ip = request.META.get('REMOTE_ADDR') 
-
+# def get_client_ip(request):
+#     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+#     if x_forwarded_for:
+#         ip = x_forwarded_for.split(',')[-1].strip()
+#     else:
+#         ip = request.META.get('REMOTE_ADDR') 
+# def check_login(request):
+#     if request.method == 'POST':
+#         print('zazazaa')
+#         if request.user is IsAuthenticated:
+#             print(request.user)
+#             return JsonResponse({"login_status": True})
+#         else:
+#             # No backend authenticated the credentials
+#             return JsonResponse({"login_status": False})   
 
 class all_characters(generics.ListAPIView):
-    permission_classes = (IsAuthenticated,)
+    # permission_classes = (IsAuthenticated,)
     queryset = Character.objects.all()
     serializer_class = CharacterSerializer
     # def get(self, request, *args, **kwargs): 
@@ -56,18 +64,16 @@ class characterDetails(generics.RetrieveAPIView):
         return obj
 
 class characterDetails_Id(generics.RetrieveAPIView):
+    print('zazazazazzzaaza')
     permission_classes = (IsAuthenticated,)
     queryset = Character.objects.all()
     serializer_class = CharacterSerializer
     lookup_fields = ('pk')
-    # def get_object(self):
-    #     queryset = self.get_queryset()
-    #     filter = {}
-    #     for field in self.lookup_fields:
-    #         filter[field] = self.kwargs[field]
-    #     obj = get_object_or_404(queryset, **filter)
-    #     self.check_object_permissions(self.request, obj)
-    #     return obj
+    def get_object(self):
+        queryset = self.get_queryset()
+        filter = {"id": self.kwargs["pk"]}
+        obj = get_object_or_404(queryset, **filter)
+        return obj
 
 class characterCRUD(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = (IsAuthenticated,)
