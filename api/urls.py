@@ -14,8 +14,8 @@ urlpatterns = [
     path("characterCRUD/<str:name>/<int:pk>", characterCRUD.as_view(), name="delete_character"),
     # path("character_details/<str:name>/<int:pk>", characterDetails.as_view(), name="character_details"),
     path("character_details/<int:pk>", characterDetails_Id.as_view(), name="character_details"),
-    path('token', jwt_views.TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('token/refresh', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
+    # path('token', jwt_views.TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    # path('token/refresh', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
     ]
 
 # urlpatterns = [

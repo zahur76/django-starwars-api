@@ -64,7 +64,6 @@ class characterDetails(generics.RetrieveAPIView):
         return obj
 
 class characterDetails_Id(generics.RetrieveAPIView):
-    print('zazazazazzzaaza')
     permission_classes = (IsAuthenticated,)
     queryset = Character.objects.all()
     serializer_class = CharacterSerializer
