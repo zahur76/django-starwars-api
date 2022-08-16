@@ -52,15 +52,37 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'dj_rest_auth',
     'api',
+    'social_login',
 
     'django.contrib.sites',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
     'dj_rest_auth.registration',
+    'allauth.socialaccount.providers.google',
 ]
 
 SITE_ID = 1
+
+SOCIALACCOUNT_PROVIDERS = {
+            'google': {
+               'SCOPE': [
+                    'profile',
+                    'email',
+               ],
+                'AUTH_PARAMS': {
+                    'access_type': 'online',
+                }
+            }
+        }
+
+# Disable email verification since this is just a test.
+# If you want to enable it, you'll need to configure django-allauth's email confirmation pages
+SOCIALACCOUNT_EMAIL_VERIFICATION = "none"
+SOCIALACCOUNT_EMAIL_REQUIRED = False
+
+
+
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
@@ -81,7 +103,6 @@ REST_FRAMEWORK = {
         'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
     ],
 }
-
 
 CORS_ORIGIN_ALLOW_ALL=True
 

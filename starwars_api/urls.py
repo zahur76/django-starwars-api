@@ -18,6 +18,7 @@ from django.urls import path
 from django.urls import include, path
 from django.conf import settings
 from django.conf.urls.static import static
+from social_login.views import GoogleLogin
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,4 +26,5 @@ urlpatterns = [
     path("accounts/", include("allauth.urls")),
     path('dj-rest-auth/', include('dj_rest_auth.urls')),
     path('dj-rest-auth/registration/', include('dj_rest_auth.registration.urls')),
+    path('social_login/google/', GoogleLogin.as_view(), name='google_login'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
