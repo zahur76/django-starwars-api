@@ -6,6 +6,10 @@ Also makes use of JWT to access api views.
 
 Uses allauth and dj-rest-auth for login and registration purposes. Modifies dj urls and views to make use of allauth.
 
+- need to update:
+    - confirm_email in allauth account
+    - update url in dj-rest-auth registration ```account-confirm-email/``` to point to ConfirmEmailView
+
 ConfirmEmailView modified in venv dj_rest_allauth registration urls to direct to allauth views to return response
 
 ### Tecnologies used
@@ -137,6 +141,8 @@ ConfirmEmailView modified in venv dj_rest_allauth registration urls to direct to
     - install ``` npm install react-google-login --legacy-peer-dep ``` & ``` npm install --save gapi-script ```
 
     - add google sign in form to obtain code and token using react-google-login
+
+    - setup social application with client id and key obtained from google api console. Remember to add site to settings.
 
     - send token obtained when signing in to http://127.0.0.1:8000/social_login/google/ url. 
 
